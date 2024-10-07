@@ -69,6 +69,21 @@ function deleteBook($conn, $id)
     $stmt->close();
 }
 
+// api for deleting book
+function deleteBook($conn, $id)
+{
+    $stmt = $conn->prepare("DELETE FROM books WHERE id=?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        echo "Book deleted successfully.";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
 // Handle form submissions (add/update)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['id'])) {
